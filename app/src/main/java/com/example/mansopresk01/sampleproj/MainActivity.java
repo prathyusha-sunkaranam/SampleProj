@@ -1,6 +1,8 @@
 package com.example.mansopresk01.sampleproj;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +23,7 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText username,password;
+    EditText username,password,email;
     CheckBox tc;
     Button login,clear,validate,test,lefttorgt,btmtotop;
     RadioButton rb;
@@ -33,33 +35,43 @@ public class MainActivity extends AppCompatActivity {
     Spinner spinner;
     Calendar c;
 
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String Name = "nameKey";
+    public static final String pswrd = "pswrdKey";
+    public static final String Email = "emailKey";
+
+    SharedPreferences sharedpreferences;
+    public static final  String MYPREFERENCES = "Myprefs";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         username = (EditText) findViewById(R.id.username_input);
         password = (EditText) findViewById(R.id.password_input);
+        email = (EditText)findViewById(R.id.email_input);
         tc = (CheckBox) findViewById(R.id.terms);
         login = (Button) findViewById(R.id.login_btn);
+
         clear = (Button) findViewById(R.id.clear_btn);
         validate = (Button) findViewById(R.id.validate);
         test = (Button) findViewById(R.id.test_btn);
-radioGroup=(RadioGroup)findViewById(R.id.radiogroup) ;
+        radioGroup=(RadioGroup)findViewById(R.id.radiogroup) ;
         rating = (RatingBar) findViewById(R.id.rating);
         toglebtn = (ToggleButton) findViewById(R.id.toggle_btn);
         Switch = (Switch) findViewById(R.id.switch_btn);
         date = (TextView)findViewById(R.id.date_Lable);
         spinner=(Spinner)findViewById(R.id.spnr);
-//        //String date1 = date.getText().toString();
-//        String date1 = c.get(Calendar.DAY_OF_MONTH)+"/"+c.get(Calendar.MONTH)+"/"+c.get(Calendar.YEAR);
-//        Toast.makeText(this, "date1", Toast.LENGTH_SHORT).show();
         String dt;
         Date cal = (Date) Calendar.getInstance().getTime();
         dt = cal.toLocaleString();
         date.setText(dt.toString());
 
 
-    }
+
+
+
+            }
     public void valid(View v){
         if(username.getText().toString().isEmpty()){
             username.requestFocus();
@@ -70,13 +82,24 @@ radioGroup=(RadioGroup)findViewById(R.id.radiogroup) ;
             password.setError("");
         }
         else if (tc.isChecked()){
-            Toast.makeText(this, "Validation successful", Toast.LENGTH_SHORT).show();
 
-        }
+            String usrname = username.getText().toString();
+            String pswrd = password.getText().toString();
+            sharedpreferences = getSharedPreferences("userdetails",MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString("username",usrname);
+            editor.putString("password",pswrd);
+            editor.commit();
+
+            Intent i = new Intent(MainActivity.this,NavMainActivity.class);
+            startActivity(i);
+
+
+}
         else {
             Toast.makeText(this, "Accept terms and conditions", Toast.LENGTH_SHORT).show();
-        }
-    }
+        }}
+
     public void clear(View v){
         username.setText("");
         password.setText("");
@@ -87,7 +110,7 @@ radioGroup=(RadioGroup)findViewById(R.id.radiogroup) ;
         rb = (RadioButton)findViewById(selectedId);
         String st = spinner.getSelectedItem().toString();
        Toast.makeText(this, rb.getText().toString()+""+rating1+""+st, Toast.LENGTH_SHORT).show();
-        //Toast.makeText(this, st, Toast.LENGTH_SHORT).show();
+
     }
     public void test (View v){
         if(Switch.isChecked() && toglebtn.isChecked()){

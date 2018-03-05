@@ -28,6 +28,13 @@
             android:layout_height="wrap_content"
             android:hint="Password"
             android:textSize="22sp"/>
+    <EditText
+        android:id="@+id/email_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="email"
+        android:textSize="22sp"/>
+
     <CheckBox
         android:id="@+id/terms"
         android:layout_width="match_parent"
