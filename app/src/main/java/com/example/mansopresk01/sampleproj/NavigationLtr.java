@@ -44,7 +44,7 @@ public class NavigationLtr extends AppCompatActivity
     public static final String CAM_PERMISSION_NAME[] = {android.Manifest.permission.CAMERA};
     public static final int GAL_PERMISSION_ACCESS_CODE = 222;
     public static final String GAL_PERMISSION_NAME[] = {android.Manifest.permission.READ_EXTERNAL_STORAGE};
-
+    TextView name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,11 +70,20 @@ public class NavigationLtr extends AppCompatActivity
        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View hview = navigationView.getHeaderView(0);
-        TextView name = (TextView)hview.findViewById(R.id.txtvwname);
+         name = (TextView)hview.findViewById(R.id.txtvwname);
          iv1 = (ImageView)hview.findViewById(R.id.img1);
-        sharedPreferences = getSharedPreferences("userdetails",MODE_PRIVATE);
-        String uname = sharedPreferences.getString("username",null);
-          name.setText(uname);
+
+            sharedPreferences = getSharedPreferences("userdetails", MODE_PRIVATE);
+            String uname = sharedPreferences.getString("username", null);
+        if(sharedPreferences!=null) {
+            if (uname != null || uname != "") {
+                name.setText(uname);
+            } else {
+                Intent i = new Intent(this, MainActivity.class);
+                startActivity(i);
+            }
+        }
+
 
     }
 
@@ -127,7 +136,13 @@ public class NavigationLtr extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
+//            Intent i=new Intent(NavigationLtr.this,MainActivity.class);
+//            SharedPreferences settings =getSharedPreferences("userdetails",MODE_PRIVATE);
+//            settings.edit().clear().commit();
+//            startActivity(i);
+            Intent intent = new Intent(this, MainActivity.class);
+            getApplicationContext().getSharedPreferences("userdetails", 0).edit().clear().commit();
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -66,11 +66,12 @@ public class MainActivity extends AppCompatActivity {
         Date cal = (Date) Calendar.getInstance().getTime();
         dt = cal.toLocaleString();
         date.setText(dt.toString());
-
-
-
-
-
+        sharedpreferences = getSharedPreferences("userdetails",MODE_PRIVATE);
+        String uname = sharedpreferences.getString("username",null);
+         if(uname!=null){
+           Intent i=new Intent(this,NavigationLtr.class);
+           startActivity(i);
+         }
             }
     public void valid(View v){
         if(username.getText().toString().isEmpty()){
@@ -90,9 +91,10 @@ public class MainActivity extends AppCompatActivity {
             editor.putString("username",usrname);
             editor.putString("password",pswrd);
             editor.commit();
-
-            Intent i = new Intent(MainActivity.this,NavMainActivity.class);
-            startActivity(i);
+            if(sharedpreferences!=null) {
+                Intent i = new Intent(MainActivity.this, NavMainActivity.class);
+                startActivity(i);
+            }
 
 
 }
