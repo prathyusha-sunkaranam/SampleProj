@@ -18,7 +18,7 @@ public class WebViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
-        simpleWebView = (WebView)findViewById(R.id.simpleWebView);
+        simpleWebView = (WebView) findViewById(R.id.simpleWebView);
 
         String myPdfUrl = "https://www.adobe.com/content/dam/acom/en/devnet/acrobat/pdfs/pdf_open_parameters.pdf";
         String url = "http://docs.google.com/gview?embedded=true&url=" + myPdfUrl;
@@ -28,9 +28,3 @@ public class WebViewActivity extends AppCompatActivity {
     }
 
 }
-
-
-
-
-//mywebview=(WebView)findViewById(R.id.webView1);
-//        mywebview.loadUrl("https://www.javatpoint.com/android-webview-example");
