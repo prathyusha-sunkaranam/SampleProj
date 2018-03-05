@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -80,7 +81,9 @@ public class NavigationLtr extends AppCompatActivity
                 name.setText(uname);
             } else {
                 Intent i = new Intent(this, MainActivity.class);
+                Toast.makeText(this, "Logout completely", Toast.LENGTH_SHORT).show();
                 startActivity(i);
+
             }
         }
 
