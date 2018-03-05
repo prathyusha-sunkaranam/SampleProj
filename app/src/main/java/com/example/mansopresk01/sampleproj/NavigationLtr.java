@@ -81,7 +81,7 @@ public class NavigationLtr extends AppCompatActivity
                 name.setText(uname);
             } else {
                 Intent i = new Intent(this, MainActivity.class);
-                Toast.makeText(this, "Logout completely", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(this, "Logout completely", Toast.LENGTH_SHORT).show();
                 startActivity(i);
 
             }
