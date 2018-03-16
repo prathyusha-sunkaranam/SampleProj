@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
     package="com.example.mansopresk01.sampleproj">
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
-
-
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -34,8 +31,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ToptoBtmActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".NavMainActivity"></activity>
-        <activity android:name=".WebViewActivity"></activity>
+        <activity android:name=".NavMainActivity" />
+        <activity android:name=".WebViewActivity" />
+        <activity android:name=".Frag1Activity" />
+        <activity android:name=".Frag2Activity" />
+        <activity android:name=".Frag3Activity"></activity>
     </application>
 
 </manifest>

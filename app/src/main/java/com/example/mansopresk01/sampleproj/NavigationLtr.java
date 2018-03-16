@@ -11,8 +11,13 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -29,6 +34,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.mansopresk01.sampleproj.MainActivity.MYPREFERENCES;
 
@@ -37,6 +44,14 @@ public class NavigationLtr extends AppCompatActivity
     SharedPreferences sharedPreferences;
     ImageView iv1;
     Bitmap bit = null;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private int[] tabIcons = {
+            R.drawable.apple,
+            R.drawable.orange,
+            R.drawable.grapes,
+            R.drawable.banana
+    };
     String choice[] = {"CAMERA","GALLERY"};
     public static final int CAM_REQ_CODE = 123;
     public static final int GAL_REQ_CODE = 321;
@@ -53,6 +68,14 @@ public class NavigationLtr extends AppCompatActivity
         setContentView(R.layout.activity_main2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        addTabs(viewPager);
+
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+        setupTabIcons();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -129,8 +152,20 @@ public class NavigationLtr extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
+
+//            CameraImportFragment cameraImportFragment = new CameraImportFragment();
+//            getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id.content_frame,cameraImportFragment)
+//                    .addToBackStack(null)
+//                    .commit();
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
+
+//            GalleryFragment galleryFragment = new GalleryFragment();
+//            getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id.content_frame,galleryFragment)
+//                    .addToBackStack(null)
+//                    .commit();
 
         } else if (id == R.id.nav_slideshow) {
 
@@ -152,6 +187,54 @@ public class NavigationLtr extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+    private void setupTabIcons() {
+        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+        tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+    }
+    private void addTabs(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFrag(new AppleFragment(), "APPLE");
+        adapter.addFrag(new OrangeFragment(), "ORANGE");
+        adapter.addFrag(new GrapesFragment(), "GRAPES");
+        adapter.addFrag(new BananaFragment(), "Banana");
+        viewPager.setAdapter(adapter);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFrag(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
+
+
+
 
     public void cam(View v){
 
